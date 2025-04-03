@@ -1,91 +1,126 @@
-# Fetch MCP Server
+# 🕸️ Better Fetch MCP Server
 
-![fetch mcp logo](logo.jpg)
+![fetch mcp logo](./logo.jpg)
 
-This MCP server provides functionality to fetch web content in various formats, including HTML, JSON, plain text, and Markdown.
+This MCP server provides functionality to fetch web content in various formats, including HTML, JSON, plain text, and Markdown. This improved version offers Windows compatibility and simplified installation.
 
-## Components
+## 🧰 Tools
 
-### Tools
+The following tools are available for fetching and processing web content:
 
-- **fetch_html**
-  - Fetch a website and return the content as HTML
-  - Input:
+### **1. `fetch_html` 🖼️**
+- **Purpose**: Fetches and returns raw HTML content from any URL.
+- **Input**:
     - `url` (string, required): URL of the website to fetch
-    - `headers` (object, optional): Custom headers to include in the request
-  - Returns the raw HTML content of the webpage
+    - `headers` (object, optional): Custom headers for the request
+- **Output**: Raw HTML content of the webpage.
 
-- **fetch_json**
-  - Fetch a JSON file from a URL
-  - Input:
-    - `url` (string, required): URL of the JSON to fetch
-    - `headers` (object, optional): Custom headers to include in the request
-  - Returns the parsed JSON content
+### **2. `fetch_json` 📊**
+- **Purpose**: Fetches and parses JSON data from any URL.
+- **Input**:
+    - `url` (string, required): URL of the JSON resource
+    - `headers` (object, optional): Custom headers for the request
+- **Output**: Parsed JSON object.
 
-- **fetch_txt**
-  - Fetch a website and return the content as plain text (no HTML)
-  - Input:
+### **3. `fetch_txt` 📝**
+- **Purpose**: Fetches and returns clean plain text content, removing HTML tags and scripts.
+- **Input**:
     - `url` (string, required): URL of the website to fetch
-    - `headers` (object, optional): Custom headers to include in the request
-  - Returns the text content of the webpage with HTML tags, scripts, and styles removed
+    - `headers` (object, optional): Custom headers for the request
+- **Output**: Plain text content of the webpage.
 
-- **fetch_markdown**
-  - Fetch a website and return the content as Markdown
-  - Input:
+### **4. `fetch_markdown` ✍️**
+- **Purpose**: Fetches content and converts it to well-formatted Markdown.
+- **Input**:
     - `url` (string, required): URL of the website to fetch
-    - `headers` (object, optional): Custom headers to include in the request
-  - Returns the content of the webpage converted to Markdown format
+    - `headers` (object, optional): Custom headers for the request
+- **Output**: Markdown representation of the webpage content.
 
-### Resources
+## 📥 Installation
 
-This server does not provide any persistent resources. It's designed to fetch and transform web content on demand.
-
-## Getting started
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Build the server: `npm run build`
-
-### Usage
-
-To use the server, you can run it directly:
+### Option 1: Direct usage via pnpx (recommended)
 
 ```bash
-npm start
+# Use directly without installation
+pnpx github:Nazza77/better-fetch-mcp
 ```
 
-This will start the Fetch MCP Server running on stdio.
+### Option 2: Direct usage via npx
 
-### Usage with Desktop App
+```bash
+# Use directly without installation
+npx -y github:Nazza77/better-fetch-mcp
+```
 
-To integrate this server with a desktop app, add the following to your app's server configuration:
+### Option 3: Local installation using pnpm
+
+```bash
+# Clone the repository
+git clone https://github.com/Nazza77/better-fetch-mcp.git
+cd better-fetch-mcp
+
+# Install dependencies using pnpm
+pnpm install
+
+# Build the server using pnpm
+pnpm build
+
+# Run the server using pnpm
+pnpm start
+```
+
+## 🚀 Usage with Claude Desktop or other MCP clients
+
+Add this configuration to your configuration file:
+
+### Using pnpx (recommended)
 
 ```json
 {
   "mcpServers": {
-    "fetch": {
-      "command": "node",
-      "args": [
-        "{ABSOLUTE PATH TO FILE HERE}/dist/index.js"
-      ]
+    "better-fetch": {
+      "command": "pnpx",
+      "args": ["github:Nazza77/better-fetch-mcp"]
     }
   }
 }
 ```
 
-## Features
+### Using npx
 
-- Fetches web content using modern fetch API
-- Supports custom headers for requests
-- Provides content in multiple formats: HTML, JSON, plain text, and Markdown
-- Uses JSDOM for HTML parsing and text extraction
-- Uses TurndownService for HTML to Markdown conversion
+```json
+{
+  "mcpServers": {
+    "better-fetch": {
+      "command": "npx",
+      "args": ["-y", "github:Nazza77/better-fetch-mcp"]
+    }
+  }
+}
+```
 
-## Development
+## ✨ Features
 
-- Run `npm run dev` to start the TypeScript compiler in watch mode
-- Use `npm test` to run the test suite
+- Fetches web content using modern fetch API.
+- Supports custom headers for requests.
+- Provides content in multiple formats: HTML, JSON, plain text, and Markdown.
+- Uses JSDOM for HTML parsing and text extraction.
+- Uses TurndownService for HTML to Markdown conversion.
+- **Windows compatible** (added shx for build scripts).
+- **Directly executable** via pnpx or npx without prior installation.
 
-## License
+## 👨‍💻 Development
+
+- Run `pnpm dev` to start the TypeScript compiler in watch mode.
+- Use `pnpm test` to run the test suite.
+
+## 🔄 Changes in this version
+
+- Added Windows compatibility.
+- Added `bin` property for direct execution with pnpx/npx.
+- Updated dependencies (including jsdom to version 26.0.0).
+- Improved logging for easier debugging.
+
+## 📄 License
 
 This project is licensed under the MIT License.

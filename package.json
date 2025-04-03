@@ -1,5 +1,5 @@
 {
-  "name": "fetch",
+  "name": "better-fetch",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "author": "zcaceres (@zachcaceres zach.dev)",
   "bin": {
-    "fetch-mcp": "./dist/index.js"
+    "better-fetch": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
