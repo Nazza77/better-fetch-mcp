@@ -107,19 +107,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
   const validatedArgs = RequestPayloadSchema.parse(args);
 
-  if (name === "fetch_html") {
-    return await Fetcher.html(validatedArgs);
+  switch (name) {
+    case "fetch_html":
+      return await Fetcher.html(validatedArgs);
+    case "fetch_json":
+      return await Fetcher.json(validatedArgs);
+    case "fetch_txt":
+      return await Fetcher.txt(validatedArgs);
+    case "fetch_markdown":
+      return await Fetcher.markdown(validatedArgs);
+    default:
+      throw new Error("Tool not found");
   }
-  if (name === "fetch_json") {
-    return await Fetcher.json(validatedArgs);
-  }
-  if (name === "fetch_txt") {
-    return await Fetcher.txt(validatedArgs);
-  }
-  if (name === "fetch_markdown") {
-    return await Fetcher.markdown(validatedArgs);
-  }
-  throw new Error("Tool not found");
 });
 
 async function main() {
