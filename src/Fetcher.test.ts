@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Fetcher } from "./Fetcher";
 import { JSDOM } from "jsdom";
 import TurndownService from "turndown";
