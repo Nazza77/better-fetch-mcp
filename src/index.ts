@@ -107,21 +107,17 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
   const validatedArgs = RequestPayloadSchema.parse(args);
 
-  if (request.params.name === "fetch_html") {
-    const fetchResult = await Fetcher.html(validatedArgs);
-    return fetchResult;
+  if (name === "fetch_html") {
+    return await Fetcher.html(validatedArgs);
   }
-  if (request.params.name === "fetch_json") {
-    const fetchResult = await Fetcher.json(validatedArgs);
-    return fetchResult;
+  if (name === "fetch_json") {
+    return await Fetcher.json(validatedArgs);
   }
-  if (request.params.name === "fetch_txt") {
-    const fetchResult = await Fetcher.txt(validatedArgs);
-    return fetchResult;
+  if (name === "fetch_txt") {
+    return await Fetcher.txt(validatedArgs);
   }
-  if (request.params.name === "fetch_markdown") {
-    const fetchResult = await Fetcher.markdown(validatedArgs);
-    return fetchResult;
+  if (name === "fetch_markdown") {
+    return await Fetcher.markdown(validatedArgs);
   }
   throw new Error("Tool not found");
 });
