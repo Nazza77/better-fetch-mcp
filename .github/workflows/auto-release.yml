@@ -1,0 +1,55 @@
+name: "Auto Release"
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  create-release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version from tag
+        id: get-version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Get previous tag
+        id: get-previous-tag
+        run: |
+          PREVIOUS_TAG=$(git tag --sort=-v:refname | grep -v "${{ github.ref_name }}" | head -n 1 || echo "")
+          if [ -z "$PREVIOUS_TAG" ]; then
+            echo "PREVIOUS_TAG=null" >> $GITHUB_OUTPUT
+            echo "►► No previous tag found. This is the first release."
+          else
+            echo "PREVIOUS_TAG=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
+            echo "►► Previous tag: $PREVIOUS_TAG"
+          fi
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          if [ "${{ steps.get-previous-tag.outputs.PREVIOUS_TAG }}" = "null" ]; then
+            echo "**First Release**" > release_notes.md
+          else
+            echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${{ steps.get-previous-tag.outputs.PREVIOUS_TAG }}...${{ github.ref_name }}" > release_notes.md
+          fi
+
+      - name: Create Release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ steps.get-version.outputs.VERSION }}
+          body_path: ./release_notes.md
+          draft: false
+          prerelease: false
