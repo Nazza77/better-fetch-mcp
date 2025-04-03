@@ -129,6 +129,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
+  console.error('✅ Better Fetch MCP server running on stdio');
 }
 
 main().catch((error) => {
